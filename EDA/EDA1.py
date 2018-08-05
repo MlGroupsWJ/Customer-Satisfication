@@ -36,6 +36,7 @@ pairplotlist.append('TARGET')
 # sns.pairplot(train_data[pairplotlist])
 # plt.savefig('../picture/pairplot')
 # plt.show()
+
 # value_counts分析
 # train_data[0].value_counts().plot.bar()
 # plt.savefig('../picture/value_counts_0')
@@ -46,13 +47,13 @@ pairplotlist.append('TARGET')
 # train_data[137].value_counts().plot.bar()
 # plt.savefig('../picture/value_counts_137')
 # train_data[157].value_counts().plot.bar()
-# plt.savefig('../picture/value_counts_157')
+# plt.savefig('../picture/value_counts_157'
 # train_data[193].value_counts().plot.bar()
 # plt.savefig('../picture/value_counts_193')
 # train_data[368].value_counts().plot.bar()
 # plt.savefig('../picture/value_counts_368')
 # plt.show()
-# print("value counts of 0:\n", train_data[0].value_counts())
+
 outlier1 = train_data.loc[train_data[157] > 100].index.tolist()
 outlier2 = train_data.loc[train_data[137] > 100].index.tolist()
 outlier3 = train_data.loc[(train_data[368] > 20000000)].index.tolist()
@@ -63,7 +64,10 @@ print("after first drop outlier shape:", train_data.shape)
 
 
 mm = MinMaxScaler()
-train_data = pd.DataFrame(mm.fit_transform(train_data))
+train_data_x = train_data.iloc[:, :-1]
+train_data_y = train_data.iloc[:, -1]
+train_data_x = pd.DataFrame(data=mm.fit_transform(train_data_x),index=train_data_x.index)
+train_data = pd.concat([train_data_x, train_data_y], axis=1)
 print("after standard:", train_data.shape)
 
 # pearson相关系数
@@ -114,8 +118,9 @@ print("after drop low var:", train_data.shape)
 # ax2 = fig.add_subplot(312)
 # sns.barplot(data=imptdf, x='feat', y='importance')
 # plt.xticks(rotation='vertical')
-#
-#
+# plt.show()
+
+
 # # 最大信息系数
 # # micdf = pd.DataFrame({'feat': x.columns, 'mic': list(range(len(x.columns)))})
 # # for i in range(len(micdf)):
@@ -127,8 +132,8 @@ print("after drop low var:", train_data.shape)
 # sns.barplot(data=micdf, x='feat', y='mic')
 # plt.xticks(rotation='vertical')
 # # plt.show()
-#
-#
+
+
 # # 建立综合评分机制来筛选数据
 # vardf['var_score'] = vardf['std'].rank()
 # imptdf['impt_score'] = imptdf['importance'].rank()
@@ -142,7 +147,7 @@ print("after drop low var:", train_data.shape)
 # sns.barplot(data=alldf, x='feat', y='score')
 # plt.xticks(rotation='vertical')
 # # plt.show()
-#
+
 # alldf.sort_values(by='score', ascending=False, inplace=True)
 # # print(alldf)
 # drop_columns = alldf[-20:].feat.values
@@ -155,7 +160,7 @@ from Common.ModelCommon import SaveResult
 from sklearn import linear_model
 test_data.rename(columns=featureMap2, inplace=True)
 test_data.drop(zeroColumns, axis=1, inplace=True)
-test_data = pd.DataFrame(mm.fit_transform(test_data))
+test_data = pd.DataFrame(mm.transform(test_data))
 test_data.drop(vardroplist, axis=1, inplace=True)
 print('test_date shape:', test_data.shape)
 XX = train_data.iloc[:, :-1]
