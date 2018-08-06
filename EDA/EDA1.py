@@ -57,7 +57,6 @@ outlier1 = train_data.loc[train_data[157] > 100].index.tolist()
 outlier2 = train_data.loc[train_data[137] > 100].index.tolist()
 outlier3 = train_data.loc[(train_data[368] > 20000000)].index.tolist()
 outlier = set(outlier1 + outlier2 + outlier3)
-# print("first outlier list:", outlier)
 train_data.drop(outlier, axis=0, inplace=True)
 print("after first drop outlier shape:", train_data.shape)
 
@@ -66,10 +65,10 @@ print("after first drop outlier shape:", train_data.shape)
 # 连续特征离散化,根据上图来区分划分区间
 import warnings
 warnings.filterwarnings("ignore")
-train_data[368][train_data[368] < 150000] = 0
-train_data[368][(train_data[368] < 225000) & (train_data[368] > 150000)] = 1
-train_data[368][(train_data[368] < 500000) & (train_data[368] > 225000)] = 2
-train_data[368][(train_data[368] < 1000000) & (train_data[368] > 6000000)] = 3
+train_data[368][train_data[368] <= 150000] = 0
+train_data[368][(train_data[368] <= 225000) & (train_data[368] > 150000)] = 1
+train_data[368][(train_data[368] <= 500000) & (train_data[368] > 225000)] = 2
+train_data[368][(train_data[368] <= 1000000) & (train_data[368] > 500000)] = 3
 train_data[368][train_data[368] > 6000000] = 4
 
 
@@ -126,11 +125,11 @@ plt.xticks(rotation='vertical')
 
 
 # 最大信息系数
-# micdf = pd.DataFrame({'feat': x.columns, 'mic': list(range(len(x.columns)))})
-# for i in range(len(micdf)):
-#     micdf.iloc[i, 1] = mic(x[micdf.iloc[i, 0]], y)
-# micdf.to_csv('../csv/micdf.csv', index=False)
-micdf = pd.read_csv('../csv/micdf.csv')
+micdf = pd.DataFrame({'feat': x.columns, 'mic': list(range(len(x.columns)))})
+for i in range(len(micdf)):
+    micdf.iloc[i, 1] = mic(x[micdf.iloc[i, 0]], y)
+micdf.to_csv('../csv/micdf.csv', index=False)
+# micdf = pd.read_csv('../csv/micdf.csv')
 ax3 = fig.add_subplot(313)
 sns.barplot(data=micdf, x='feat', y='mic')
 plt.xticks(rotation='vertical')
@@ -158,10 +157,10 @@ print("final train_data shape:", train_data.shape)
 from Common.ModelCommon import SaveResult
 from sklearn import linear_model
 test_data.rename(columns=featureMap2, inplace=True)
-test_data[368][test_data[368] < 150000] = 0
-test_data[368][(test_data[368] < 225000) & (test_data[368] > 150000)] = 1
-test_data[368][(test_data[368] < 500000) & (test_data[368] > 225000)] = 2
-test_data[368][(test_data[368] < 1000000) & (test_data[368] > 6000000)] = 3
+test_data[368][test_data[368] <= 150000] = 0
+test_data[368][(test_data[368] <= 225000) & (test_data[368] > 150000)] = 1
+test_data[368][(test_data[368] <= 500000) & (test_data[368] > 225000)] = 2
+test_data[368][(test_data[368] <= 1000000) & (test_data[368] > 500000)] = 3
 test_data[368][test_data[368] > 6000000] = 4
 test_data.drop(zeroColumns, axis=1, inplace=True)
 test_data = pd.DataFrame(mm.transform(test_data), index=test_data.index, columns=test_data.columns)
