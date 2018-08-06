@@ -1,6 +1,7 @@
 # -*- coding:UTF-8 -*-
 import pandas as pd
 from minepy import MINE
+import matplotlib.pyplot as plt
 
 class NAClass(object):
     def __init__(self):
@@ -69,3 +70,10 @@ def mic(x, y):
     m = MINE()
     m.compute_score(x, y)
     return m.mic()
+
+
+def featShow(train_data, feat):
+    plt.scatter(range(train_data.shape[0]), train_data[feat].values, s=20)
+    plt.xlabel('index')
+    plt.ylabel(feat)
+    plt.show()
