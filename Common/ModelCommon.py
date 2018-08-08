@@ -1,13 +1,17 @@
-from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import cross_val_score, learning_curve, train_test_split
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.model_selection import learning_curve
+from sklearn.metrics import classification_report
 
-def ModelCV(estimator, modelname, traindf, k_fold):
-    x = traindf.iloc[:, :-1]
-    y = traindf.iloc[:, -1]
+def ModelReport(estimator, modelname, train_data, k_fold):
+    x = train_data.iloc[:, :-1]
+    y = train_data.iloc[:, -1]
     print("%s mean score:" % modelname, cross_val_score(estimator, x, y, cv=k_fold).mean())
+    x_train, x_test, y_train, y_test = train_test_split(train_data, train_data.TARGET, test_size=0.5, random_state=33)
+    estimator.fit(x_train, y_train)
+    y_predict = estimator.predict(x_test)
+    print(classification_report(y_test, y_predict))
 
 
 def SaveResult(estimator, x, y, testdf, idlist, filename):

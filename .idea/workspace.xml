@@ -3,8 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="e7e1c4a3-68b2-4345-978b-7135ec8d53e4" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BaseModel/EDA1_Model.py" beforeDir="false" afterPath="$PROJECT_DIR$/BaseModel/BaseModel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/EDACommon.py" beforeDir="false" afterPath="$PROJECT_DIR$/Common/EDACommon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Common/ModelCommon.py" beforeDir="false" afterPath="$PROJECT_DIR$/Common/ModelCommon.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EDA/EDA1.py" beforeDir="false" afterPath="$PROJECT_DIR$/EDA/EDA1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/csv/micdf.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EDA/EDA3.py" beforeDir="false" afterPath="$PROJECT_DIR$/EDA/EDA3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csv/micdf.csv" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/micdf.csv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -14,20 +18,21 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Customer_Satisfication$EDA1.coverage" NAME="EDA1 Coverage Results" MODIFIED="1533594235724" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/EDA" />
+    <SUITE FILE_PATH="coverage/Customer_Satisfication$EDA1.coverage" NAME="EDA1 Coverage Results" MODIFIED="1533652752543" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/EDA" />
     <SUITE FILE_PATH="coverage/Customer_Satisfication$data.coverage" NAME="data Coverage Results" MODIFIED="1533392124977" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data" />
-    <SUITE FILE_PATH="coverage/Customer_Satisfication$EDA3.coverage" NAME="EDA3 Coverage Results" MODIFIED="1533559094626" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/EDA" />
+    <SUITE FILE_PATH="coverage/Customer_Satisfication$EDA3.coverage" NAME="EDA3 Coverage Results" MODIFIED="1533739674569" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/EDA" />
     <SUITE FILE_PATH="coverage/Customer_Satisfication$EDACommon.coverage" NAME="EDACommon Coverage Results" MODIFIED="1532957350769" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Common" />
     <SUITE FILE_PATH="coverage/Customer_Satisfication$Origdata_Model.coverage" NAME="Origdata_Model Coverage Results" MODIFIED="1533305034982" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/BaseModel" />
-    <SUITE FILE_PATH="coverage/Customer_Satisfication$EDA1_Model.coverage" NAME="EDA1_Model Coverage Results" MODIFIED="1533387091503" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/BaseModel" />
+    <SUITE FILE_PATH="coverage/Customer_Satisfication$BaseModel.coverage" NAME="BaseModel Coverage Results" MODIFIED="1533740843459" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/BaseModel" />
+    <SUITE FILE_PATH="coverage/Customer_Satisfication$EDA1_Model.coverage" NAME="EDA1_Model Coverage Results" MODIFIED="1533681077550" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/BaseModel" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
       <file leaf-file-name="EDACommon.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Common/EDACommon.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
-              <caret line="62" lean-forward="true" selection-start-line="62" selection-end-line="62" />
+            <state relative-caret-position="972">
+              <caret line="104" column="35" selection-start-line="104" selection-start-column="35" selection-end-line="104" selection-end-column="35" />
               <folding>
                 <element signature="e#23#42#0" expanded="true" />
               </folding>
@@ -35,11 +40,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EDA1.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EDA1.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/EDA/EDA1.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1008">
-              <caret line="49" column="26" selection-start-line="49" selection-start-column="26" selection-end-line="49" selection-end-column="26" />
+            <state relative-caret-position="195">
+              <caret line="155" selection-start-line="155" selection-end-line="155" selection-end-column="8" />
               <folding>
                 <element signature="e#23#46#0" expanded="true" />
               </folding>
@@ -47,34 +52,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EDA3.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/EDA/EDA3.py">
+      <file leaf-file-name="BaseModel.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/BaseModel/BaseModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="34" column="41" selection-start-line="34" selection-start-column="41" selection-end-line="34" selection-end-column="41" />
+            <state relative-caret-position="168">
+              <caret line="8" column="21" lean-forward="true" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
               <folding>
-                <element signature="e#0#23#0" expanded="true" />
+                <element signature="e#0#32#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="data.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Data/data.py">
+      <file leaf-file-name="EDA3.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/EDA/EDA3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="8" selection-start-line="8" selection-end-line="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EDA1_Model.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BaseModel/EDA1_Model.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
+            <state relative-caret-position="132">
+              <caret line="77" column="25" lean-forward="true" selection-start-line="77" selection-start-column="25" selection-end-line="77" selection-end-column="25" />
               <folding>
-                <element signature="e#0#32#0" expanded="true" />
+                <element signature="e#0#23#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -91,18 +87,26 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>csv/</find>
       <find>picture</find>
       <find>train_eda</find>
       <find>sort</find>
-      <find>after first</find>
+      <find />
       <find>zerodf</find>
       <find>zeroColumns2</find>
-      <find>drop</find>
       <find>ss.fit</find>
       <find>.fit</find>
       <find>mm</find>
+      <find>csv/</find>
+      <find>value_</find>
+      <find>tmp</find>
+      <find>varabnormallist3</find>
+      <find>368</find>
+      <find>drop</find>
     </findStrings>
+    <replaceStrings>
+      <replace>varabnormallist4</replace>
+      <replace>'var38'</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -110,13 +114,15 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/BaseModel/EDA1_Model.py" />
-        <option value="$PROJECT_DIR$/Common/ModelCommon.py" />
         <option value="$PROJECT_DIR$/BaseModel/Origdata_Model.py" />
-        <option value="$PROJECT_DIR$/EDA/EDA3.py" />
+        <option value="$PROJECT_DIR$/Common/ModelCommon.py" />
         <option value="$PROJECT_DIR$/Data/data.py" />
-        <option value="$PROJECT_DIR$/Common/EDACommon.py" />
         <option value="$PROJECT_DIR$/EDA/EDA1.py" />
+        <option value="$PROJECT_DIR$/BaseModel/EDA1_Model.py" />
+        <option value="$PROJECT_DIR$/Common/EDACommon.py" />
+        <option value="$PROJECT_DIR$/BaseModel/EDA3_Model.py" />
+        <option value="$PROJECT_DIR$/BaseModel/BaseModel.py" />
+        <option value="$PROJECT_DIR$/EDA/EDA3.py" />
       </list>
     </option>
   </component>
@@ -149,6 +155,21 @@
               <item name="Customer-Satisfication" type="462c0819:PsiDirectoryNode" />
               <item name="BaseModel" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="Customer-Satisfication" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Customer-Satisfication" type="462c0819:PsiDirectoryNode" />
+              <item name="Common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Customer-Satisfication" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Customer-Satisfication" type="462c0819:PsiDirectoryNode" />
+              <item name="Data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Customer-Satisfication" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Customer-Satisfication" type="462c0819:PsiDirectoryNode" />
+              <item name="EDA" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -174,7 +195,26 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.EDA1">
+  <component name="RunManager" selected="Python.BaseModel">
+    <configuration name="BaseModel" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Customer-Satisfication" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/BaseModel" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/BaseModel/BaseModel.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="EDA1" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Customer-Satisfication" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -207,7 +247,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/BaseModel/EDA1_Model.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\jyd\Desktop\Customer-Satisfication\BaseModel\BaseModel.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -227,25 +267,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/EDA/EDA3.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="Origdata_Model" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Customer-Satisfication" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/BaseModel" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/BaseModel/Origdata_Model.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -273,17 +294,17 @@
     <list>
       <item itemvalue="Python.EDA1" />
       <item itemvalue="Python.EDA1_Model" />
-      <item itemvalue="Python.Origdata_Model" />
       <item itemvalue="Python.EDA3" />
       <item itemvalue="Python.data" />
+      <item itemvalue="Python.BaseModel" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.EDA1" />
+        <item itemvalue="Python.BaseModel" />
         <item itemvalue="Python.EDA3" />
-        <item itemvalue="Python.data" />
         <item itemvalue="Python.EDA1_Model" />
-        <item itemvalue="Python.Origdata_Model" />
+        <item itemvalue="Python.EDA1" />
+        <item itemvalue="Python.data" />
       </list>
     </recent_temporary>
   </component>
@@ -478,16 +499,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Common/ModelCommon.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="16" column="42" lean-forward="true" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Data/test.csv">
       <provider selected="true" editor-type-id="LargeFileEditor">
         <state relative-caret-position="357">
@@ -519,23 +530,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Data/data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BaseModel/EDA1_Model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/EDA/train_x.csv">
       <provider selected="true" editor-type-id="LargeFileEditor">
         <state relative-caret-position="402">
@@ -560,17 +554,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/EDA/EDA3.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="34" column="41" selection-start-line="34" selection-start-column="41" selection-end-line="34" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/csv/micdf.csv">
+    <entry file="file://$PROJECT_DIR$/tmp/micdf.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-6372">
           <caret line="11" column="23" lean-forward="true" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
@@ -598,10 +582,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Data/data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="3" column="34" lean-forward="true" selection-start-line="3" selection-start-column="34" selection-end-line="3" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Common/ModelCommon.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="9" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#85#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Common/EDACommon.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="62" lean-forward="true" selection-start-line="62" selection-end-line="62" />
+        <state relative-caret-position="972">
+          <caret line="104" column="35" selection-start-line="104" selection-start-column="35" selection-end-line="104" selection-end-column="35" />
           <folding>
             <element signature="e#23#42#0" expanded="true" />
           </folding>
@@ -610,10 +611,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/EDA/EDA1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1008">
-          <caret line="49" column="26" selection-start-line="49" selection-start-column="26" selection-end-line="49" selection-end-column="26" />
+        <state relative-caret-position="195">
+          <caret line="155" selection-start-line="155" selection-end-line="155" selection-end-column="8" />
           <folding>
             <element signature="e#23#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BaseModel/EDA3_Model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BaseModel/BaseModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="21" lean-forward="true" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EDA/EDA3.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="77" column="25" lean-forward="true" selection-start-line="77" selection-start-column="25" selection-end-line="77" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>

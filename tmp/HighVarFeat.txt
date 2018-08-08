@@ -1,0 +1,162 @@
+D:\Users\jyd\AppData\Local\Programs\Python\Python36\python.exe C:/Users/jyd/Desktop/Customer-Satisfication/EDA/EDA3.py
+ 0.000000e+00    73946
+-1.000000e+00     1675
+ 1.000000e+10      370
+-5.000000e-01        2
+-3.333333e-01        2
+ 4.000000e+00        2
+-1.973684e-01        1
+ 1.222222e+00        1
+ 1.000000e+00        1
+ 1.538462e-01        1
+-2.910826e-01        1
+-4.995000e-01        1
+-6.666667e-01        1
+-3.494898e-01        1
+-7.602877e-01        1
+ 4.000000e-01        1
+ 5.500000e+00        1
+ 1.605039e-01        1
+ 2.333092e+00        1
+-8.333333e-01        1
+-9.038462e-01        1
+ 1.777778e+00        1
+ 1.181818e+00        1
+-8.000000e-01        1
+ 1.445714e+00        1
+-1.000000e-01        1
+-9.090909e-02        1
+Name: delta_imp_aport_var13_1y3, dtype: int64
+ 0.000000e+00    75958
+ 1.000000e+10       39
+-1.000000e+00       17
+ 1.500000e+00        1
+ 1.000055e+00        1
+ 6.853333e-01        1
+-7.500000e-01        1
+Name: delta_imp_aport_var17_1y3, dtype: int64
+ 0.000000e+00    75916
+ 1.000000e+10       70
+-1.000000e+00       18
+ 2.650549e+00        1
+ 1.517507e-01        1
+-9.684806e-01        1
+ 1.886204e+00        1
+-9.340305e-01        1
+-9.642354e-01        1
+ 3.336069e-01        1
+-4.757389e-01        1
+-9.787923e-01        1
+-6.307265e-01        1
+ 2.562323e-02        1
+ 6.267608e+00        1
+-9.503975e-01        1
+ 3.654278e+00        1
+Name: delta_imp_compra_var44_1y3, dtype: int64
+0             75980
+9999999999       38
+Name: delta_imp_reemb_var13_1y3, dtype: int64
+ 0             75997
+ 9999999999       20
+-1                 1
+Name: delta_imp_reemb_var17_1y3, dtype: int64
+ 0.000000e+00    75973
+ 1.000000e+10       42
+-5.057733e-01        1
+ 5.417098e+00        1
+-1.000000e+00        1
+Name: delta_imp_venta_var44_1y3, dtype: int64
+ 0.000000e+00    73968
+-1.000000e+00     1675
+ 1.000000e+10      370
+ 1.000000e+00        3
+-3.333333e-01        1
+-5.000000e-01        1
+Name: delta_num_aport_var13_1y3, dtype: int64
+ 0.000000e+00    75959
+ 1.000000e+10       39
+-1.000000e+00       17
+-3.333333e-01        1
+ 1.000000e+00        1
+ 2.000000e+00        1
+Name: delta_num_aport_var17_1y3, dtype: int64
+ 0.000000e+00    75921
+ 1.000000e+10       70
+-1.000000e+00       18
+ 1.000000e+00        3
+ 4.000000e+00        2
+-3.333333e-01        1
+ 2.500000e+00        1
+-6.666667e-01        1
+ 5.000000e-01        1
+Name: delta_num_compra_var44_1y3, dtype: int64
+0             75980
+9999999999       38
+Name: delta_num_reemb_var13_1y3, dtype: int64
+ 0             75997
+ 9999999999       20
+-1                 1
+Name: delta_num_reemb_var17_1y3, dtype: int64
+ 0.000000e+00    75973
+ 1.000000e+10       42
+-1.000000e+00        1
+-5.000000e-01        1
+ 8.000000e+00        1
+Name: delta_num_venta_var44_1y3, dtype: int64
+0             76016
+9999999999        2
+Name: delta_imp_amort_var18_1y3, dtype: int64
+0             76016
+9999999999        2
+Name: delta_imp_amort_var34_1y3, dtype: int64
+ 0.000000e+00    75994
+-1.000000e+00       17
+-9.500000e-01        1
+-9.404762e-01        1
+ 1.000000e+10        1
+-7.000000e-01        1
+-6.666667e-01        1
+-9.160000e-01        1
+-5.000000e-01        1
+Name: delta_imp_aport_var33_1y3, dtype: int64
+0             76017
+9999999999        1
+Name: delta_imp_reemb_var33_1y3, dtype: int64
+ 0             76012
+ 9999999999        4
+-1                 2
+Name: delta_imp_trasp_var17_in_1y3, dtype: int64
+0             76014
+9999999999        4
+Name: delta_imp_trasp_var17_out_1y3, dtype: int64
+ 0             76007
+-1                 6
+ 9999999999        5
+Name: delta_imp_trasp_var33_in_1y3, dtype: int64
+0             76017
+9999999999        1
+Name: delta_imp_trasp_var33_out_1y3, dtype: int64
+ 0.000000e+00    75999
+-1.000000e+00       17
+ 1.000000e+10        1
+-5.000000e-01        1
+Name: delta_num_aport_var33_1y3, dtype: int64
+0             76017
+9999999999        1
+Name: delta_num_reemb_var33_1y3, dtype: int64
+ 0             76012
+ 9999999999        4
+-1                 2
+Name: delta_num_trasp_var17_in_1y3, dtype: int64
+0             76014
+9999999999        4
+Name: delta_num_trasp_var17_out_1y3, dtype: int64
+ 0             76007
+-1                 6
+ 9999999999        5
+Name: delta_num_trasp_var33_in_1y3, dtype: int64
+0             76017
+9999999999        1
+Name: delta_num_trasp_var33_out_1y3, dtype: int64
+
+Process finished with exit code 0
