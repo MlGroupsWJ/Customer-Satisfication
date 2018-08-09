@@ -1,8 +1,12 @@
 # -*- coding:UTF-8 -*-
 import pandas as pd
 from minepy import MINE
+import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.ensemble import ExtraTreesClassifier
+import xgboost as xgb
+import operator
+from sklearn.utils import shuffle
 
 class NAClass(object):
     def __init__(self):
@@ -101,11 +105,41 @@ def TreeImportanceShow(train_data):
     clf = ExtraTreesClassifier()
     clf.fit(x, y)
     imptdf = pd.DataFrame({'feat': x.columns, 'importance': clf.feature_importances_})
-    plt.barplot(data=imptdf, x='feat', y='importance')
+    imptdf_sort = imptdf.sort_values(by='importance', ascending=False)
+    # print("decision tree importance:\n", imptdf_sort)
+    sns.barplot(data=imptdf_sort, x='feat', y='importance')
     plt.xticks(rotation='vertical')
     plt.show()
+    return imptdf_sort
+
+
+def xgbImportanceShow(train_data):
+    x = train_data[train_data.columns[:-1]]
+    y = train_data['TARGET']
+    dtrain = xgb.DMatrix(x, y)
+    xgb_params = {"objective": "binary:logistic", "eta": 0.01, "max_depth": 8, "seed": 42, "silent": 1}
+    model = xgb.train(xgb_params, dtrain, num_boost_round=100)
+    impt = model.get_fscore()
+    impt = sorted(impt.items(), key=operator.itemgetter(1))
+    imptdf = pd.DataFrame(impt, columns=['feature', 'fscore'])
+    imptdf_sort = imptdf.sort_values(by='fscore', ascending=False)
+    print("xgb importance:\n", imptdf_sort)
+    xgb.plot_importance(model, max_num_features=400, height=0.8)
+    plt.show()
+    return imptdf_sort
 
 
 def valueCountsShow(train_data, featlist):
     for feat in featlist:
         print(train_data[feat].value_counts())
+
+
+# rate为希望采样后的0样本的个数为rate*1样本
+def underSampling(train, rate):
+    idx_0 = train[train['TARGET'] == 0].index
+    idx_1 = train[train['TARGET'] == 1].index
+    len_1 = len(train.loc[idx_1])
+    undersample_idx_0 = shuffle(idx_0, random_state=37, n_samples=int(len_1*rate))
+    idx_list = list(undersample_idx_0) + list(idx_1)
+    train = train.loc[idx_list].reset_index(drop=True)
+    return train

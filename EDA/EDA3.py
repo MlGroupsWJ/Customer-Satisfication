@@ -1,9 +1,11 @@
+# -*- coding:UTF-8 -*-
 from Data.data import *
 from Common.EDACommon import *
 import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import  MinMaxScaler
 from math import ceil
+
 
 
 def featShow(featlist):
@@ -46,15 +48,16 @@ outlier = set(outlier1 + outlier2 + outlier3)
 train_data.drop(outlier, axis=0, inplace=True)
 
 vardf = varShow(train_data)
-# 方差小于1的直接丢弃
+# 方差小于0.01的直接丢弃
 varabnormallist1 = vardf.feat[vardf['std'] < 0.01].tolist()
 train_data.drop(varabnormallist1, axis=1, inplace=True)
+print("after drop low var feat:", train_data.shape)
 # 方差值大的反常的单独分析
 varabnormallist2 = vardf.feat[vardf['std'] > 100000000].tolist()
 # featShow(varabnormallist2)
-valueCountsShow(train_data, varabnormallist2)
+# valueCountsShow(train_data, varabnormallist2)
 varabnormallist3 = vardf.feat[(vardf['std'] < 100000000) & (vardf['std'] > 10000000)].tolist()
-valueCountsShow(train_data, varabnormallist3)
+# valueCountsShow(train_data, varabnormallist3)
 # featShow(varabnormallist3)
 # 分析发现存在多处1e+10的值，猜测代表某种异常值，类似全F，故用稍微远离其他样本值的值替代
 train_data[train_data >= 9999999999] = 100
@@ -77,8 +80,19 @@ train_data_x = pd.DataFrame(data=mm.fit_transform(train_data_x), index=train_dat
 train_data = pd.concat([train_data_x, train_data_y], axis=1)
 print("after MinMaxScaler:", train_data.shape)
 
-# 下一步思路：1.对比决策树feat_importance和xgb feat_importance
-# 2.undersampling和oversampling分别尝试
+# 对比决策树feat_importance和xgb feat_importance，丢弃各自重要性很低的值
+# 这里奇怪的是两种模型得到的importance倒数没有任何交叉
+treeImptdf = TreeImportanceShow(train_data)
+xgbImptdf = xgbImportanceShow(train_data)
+imptdroplist1 = treeImptdf['feat'][treeImptdf['importance'] == 0].values.tolist()
+imptdroplist2 = xgbImptdf['feature'][xgbImptdf['fscore'] < 10].values.tolist()
+imptdroplist = list(set(imptdroplist1 + imptdroplist2))
+train_data.drop(imptdroplist, axis=1, inplace=True)
+print("after drop imptdroplist:", train_data.shape)
+
+# undersampling
+train_data = underSampling(train_data, 1.5)
+print("after underSampling:", train_data.shape)
 
 # 测试集的处理
 test_data['var38'][test_data['var38'] <= 150000] = 0
@@ -89,5 +103,6 @@ test_data['var38'][test_data['var38'] > 6000000] = 4
 test_data.drop(zeroColumns, axis=1, inplace=True)
 test_data[test_data >= 9999999999] = 100
 test_data.drop(varabnormallist1, axis=1, inplace=True)
-test_data = pd.DataFrame(mm.transform(test_data), index=test_data.index, columns=test_data.columns)
+test_data = pd.DataFrame(mm.fit_transform(test_data), index=test_data.index, columns=test_data.columns)
+test_data.drop(imptdroplist, axis=1, inplace=True)
 print('test_date shape:', test_data.shape)
