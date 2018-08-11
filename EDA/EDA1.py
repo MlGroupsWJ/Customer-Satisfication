@@ -160,7 +160,8 @@ test_data[368][test_data[368] <= 150000] = 0
 test_data[368][(test_data[368] <= 225000) & (test_data[368] > 150000)] = 1
 test_data[368][(test_data[368] <= 500000) & (test_data[368] > 225000)] = 2
 test_data[368][(test_data[368] <= 1000000) & (test_data[368] > 500000)] = 3
-test_data[368][test_data[368] > 6000000] = 4
+test_data[368][(test_data[368] <= 6000000) & (test_data[368] > 1000000)] = 4
+test_data[368][test_data[368] > 6000000] = 5
 test_data.drop(zeroColumns, axis=1, inplace=True)
 test_data = pd.DataFrame(mm.transform(test_data), index=test_data.index, columns=test_data.columns)
 test_data.drop(drop_columns, axis=1, inplace=True)
