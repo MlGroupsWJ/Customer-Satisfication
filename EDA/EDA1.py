@@ -69,7 +69,8 @@ train_data[368][train_data[368] <= 150000] = 0
 train_data[368][(train_data[368] <= 225000) & (train_data[368] > 150000)] = 1
 train_data[368][(train_data[368] <= 500000) & (train_data[368] > 225000)] = 2
 train_data[368][(train_data[368] <= 1000000) & (train_data[368] > 500000)] = 3
-train_data[368][train_data[368] > 6000000] = 4
+train_data[368][(train_data[368] <= 6000000) & (train_data[368] > 1000000)] = 4
+train_data[368][train_data[368] > 6000000] = 5
 
 
 # 特征归一化，由于test_data可能会使用transform方法，直接使用train_data的拟合参数，所以这里必须将target去除再拟合
