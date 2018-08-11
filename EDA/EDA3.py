@@ -70,7 +70,8 @@ train_data['var38'][train_data['var38'] <= 150000] = 0
 train_data['var38'][(train_data['var38'] <= 225000) & (train_data['var38'] > 150000)] = 1
 train_data['var38'][(train_data['var38'] <= 500000) & (train_data['var38'] > 225000)] = 2
 train_data['var38'][(train_data['var38'] <= 1000000) & (train_data['var38'] > 500000)] = 3
-train_data['var38'][train_data['var38'] > 6000000] = 4
+train_data['var38'][(train_data['var38'] <= 6000000) & (train_data['var38'] > 1000000)] = 4
+train_data['var38'][train_data['var38'] > 6000000] = 5
 
 # 特征归一化，由于test_data可能会使用transform方法，直接使用train_data的拟合参数，所以这里必须将target去除再拟合
 mm = MinMaxScaler()
@@ -99,7 +100,8 @@ test_data['var38'][test_data['var38'] <= 150000] = 0
 test_data['var38'][(test_data['var38'] <= 225000) & (test_data['var38'] > 150000)] = 1
 test_data['var38'][(test_data['var38'] <= 500000) & (test_data['var38'] > 225000)] = 2
 test_data['var38'][(test_data['var38'] <= 1000000) & (test_data['var38'] > 500000)] = 3
-test_data['var38'][test_data['var38'] > 6000000] = 4
+test_data['var38'][(test_data['var38'] <= 6000000) & (test_data['var38'] > 1000000)] = 4
+test_data['var38'][test_data['var38'] > 6000000] = 5
 test_data.drop(zeroColumns, axis=1, inplace=True)
 test_data[test_data >= 9999999999] = 100
 test_data.drop(varabnormallist1, axis=1, inplace=True)
