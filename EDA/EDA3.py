@@ -2,10 +2,10 @@
 from Data.data import *
 from Common.EDACommon import *
 import seaborn as sns
+import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.preprocessing import  MinMaxScaler
+from sklearn.preprocessing import  MinMaxScaler, StandardScaler
 from math import ceil
-
 
 
 def featShow(featlist):
@@ -73,11 +73,24 @@ train_data['var38'][(train_data['var38'] <= 1000000) & (train_data['var38'] > 50
 train_data['var38'][(train_data['var38'] <= 6000000) & (train_data['var38'] > 1000000)] = 4
 train_data['var38'][train_data['var38'] > 6000000] = 5
 
+dummies = pd.get_dummies(train_data['var38'], prefix='var38')
+x = train_data.iloc[:, :-1]
+y = train_data.iloc[:, -1]
+train_data = pd.concat([x, dummies, y], axis=1)
+train_data.drop(['var38'], axis=1, inplace=True)
+train_data.to_csv('eeeeeeeee.csv', index=False)
+
+# heatmap针对哪些变量画？
+tmap = getTypeMap(train_data)
+floatColList = tmap['float64']
+# corr_heatmap(train_data, floatColList)
+
 # 特征归一化，由于test_data可能会使用transform方法，直接使用train_data的拟合参数，所以这里必须将target去除再拟合
+ss = StandardScaler()
 mm = MinMaxScaler()
 train_data_x = train_data.iloc[:, :-1]
 train_data_y = train_data.iloc[:, -1]
-train_data_x = pd.DataFrame(data=mm.fit_transform(train_data_x), index=train_data_x.index, columns=train_data_x.columns)
+train_data_x = pd.DataFrame(data=ss.fit_transform(train_data_x), index=train_data_x.index, columns=train_data_x.columns)
 train_data = pd.concat([train_data_x, train_data_y], axis=1)
 print("after MinMaxScaler:", train_data.shape)
 
@@ -91,9 +104,21 @@ imptdroplist = list(set(imptdroplist1 + imptdroplist2))
 train_data.drop(imptdroplist, axis=1, inplace=True)
 print("after drop imptdroplist:", train_data.shape)
 
+
 # undersampling
-train_data = underSampling(train_data, 1.5)
+train_data = underSampling(train_data, 1.7)
 print("after underSampling:", train_data.shape)
+
+# 循环寻找最佳的unsersampling rate，经测试以cv分数作为指标无法反应模型真实泛化能力，0样本数越高，cv分数就越高，
+# 但是得出的结果提交后LB分数下降明显，因此寻找最佳rate必须以public LB分数为指标
+# ratelist = np.arange(0.5, 10, 0.2)
+# bestrate = getBestUnSamplingRate(train_data, ratelist)
+
+# 下一步思路：寻找最佳的特征组合
+
+# oversampling，经验证，效果明显差于undersampling
+# train_data = overSampling(train_data, 20)
+# print("after overSampling:", train_data.shape)
 
 # 测试集的处理
 test_data['var38'][test_data['var38'] <= 150000] = 0
@@ -102,9 +127,12 @@ test_data['var38'][(test_data['var38'] <= 500000) & (test_data['var38'] > 225000
 test_data['var38'][(test_data['var38'] <= 1000000) & (test_data['var38'] > 500000)] = 3
 test_data['var38'][(test_data['var38'] <= 6000000) & (test_data['var38'] > 1000000)] = 4
 test_data['var38'][test_data['var38'] > 6000000] = 5
+dummies = pd.get_dummies(test_data['var38'], prefix='var38')
+test_data = pd.concat([test_data, dummies], axis=1)
+test_data.drop(['var38'], axis=1, inplace=True)
 test_data.drop(zeroColumns, axis=1, inplace=True)
 test_data[test_data >= 9999999999] = 100
 test_data.drop(varabnormallist1, axis=1, inplace=True)
-test_data = pd.DataFrame(mm.fit_transform(test_data), index=test_data.index, columns=test_data.columns)
+test_data = pd.DataFrame(ss.fit_transform(test_data), index=test_data.index, columns=test_data.columns)
 test_data.drop(imptdroplist, axis=1, inplace=True)
 print('test_date shape:', test_data.shape)

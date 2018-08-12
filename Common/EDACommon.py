@@ -7,6 +7,8 @@ from sklearn.ensemble import ExtraTreesClassifier
 import xgboost as xgb
 import operator
 from sklearn.utils import shuffle
+from Common.ModelCommon import ModelCV
+from sklearn import svm
 
 class NAClass(object):
     def __init__(self):
@@ -103,13 +105,13 @@ def TreeImportanceShow(train_data):
     x = train_data[train_data.columns[:-1]]
     y = train_data['TARGET']
     clf = ExtraTreesClassifier()
-    clf.fit(x, y)
+    clf.fit(x, y.astype('int'))
     imptdf = pd.DataFrame({'feat': x.columns, 'importance': clf.feature_importances_})
     imptdf_sort = imptdf.sort_values(by='importance', ascending=False)
     # print("decision tree importance:\n", imptdf_sort)
     sns.barplot(data=imptdf_sort, x='feat', y='importance')
     plt.xticks(rotation='vertical')
-    plt.show()
+    # plt.show()
     return imptdf_sort
 
 
@@ -123,9 +125,9 @@ def xgbImportanceShow(train_data):
     impt = sorted(impt.items(), key=operator.itemgetter(1))
     imptdf = pd.DataFrame(impt, columns=['feature', 'fscore'])
     imptdf_sort = imptdf.sort_values(by='fscore', ascending=False)
-    print("xgb importance:\n", imptdf_sort)
+    # print("xgb importance:\n", imptdf_sort)
     xgb.plot_importance(model, max_num_features=400, height=0.8)
-    plt.show()
+    # plt.show()
     return imptdf_sort
 
 
@@ -143,3 +145,54 @@ def underSampling(train, rate):
     idx_list = list(undersample_idx_0) + list(idx_1)
     train = train.loc[idx_list].reset_index(drop=True)
     return train
+
+
+# repeat为重复样本1的次数
+def overSampling(train, repeat):
+    idx_0 = train[train['TARGET'] == 0].index
+    idx_1 = train[train['TARGET'] == 1].index
+    i = 0
+    while i < repeat:
+        train = pd.concat([train, train.iloc[idx_1, :]], axis=0).reset_index(drop=True)
+        i += 1
+    return train
+
+
+# 通过train_data的cv分数来作为评判标准，但是每种不同比率的sample，最终的样本数有一定不同，是否影响指标的客观准确性？
+def getBestUnSamplingRate(train, ratelist):
+    bestscore = 0
+    bestrate = 0
+    for rate in ratelist:
+        svc = svm.LinearSVC()
+        train_data = underSampling(train, rate)
+        score = ModelCV(svc, 'svm', train_data, 5)
+        print("rate :%f, score:%f" % (rate, score))
+        if score > bestscore:
+            bestscore = score
+            bestrate = rate
+    print("best rate :%f, best score:%f" % (bestrate, bestscore))
+    return bestrate
+
+
+def corr_heatmap(train, v):
+    correlations = train[v].corr()
+
+    # Create color map ranging between two colors
+    cmap = sns.diverging_palette(220, 10, as_cmap=True)
+
+    sns.heatmap(correlations, cmap=cmap, vmax=1.0, center=0, fmt='.2f',
+                square=True, linewidths=.5, annot=True, cbar_kws={"shrink": .75})
+    plt.show()
+
+
+
+def typeShow(train_data):
+    print(train_data.dtypes.value_counts())
+
+
+def getTypeMap(train_data):
+    typeMap = {}
+    typeMap['int64'] = train_data.dtypes[train_data.dtypes == 'int64'].index
+    typeMap['float64'] = train_data.dtypes[train_data.dtypes == 'float64'].index
+    return typeMap
+
