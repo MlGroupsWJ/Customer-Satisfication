@@ -2,7 +2,6 @@
 from Data.data import *
 from Common.EDACommon import *
 import seaborn as sns
-import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import  MinMaxScaler, StandardScaler
 from math import ceil
@@ -17,7 +16,7 @@ def featShow(featlist):
         ax.scatter(range(train_data.shape[0]), train_data[feat].values, s=20)
         plt.xlabel('index')
         plt.ylabel(feat)
-    plt.show()
+    # plt.show()
 
 
 def varShow(train_data):
@@ -27,7 +26,7 @@ def varShow(train_data):
     # print(vardf_sort)
     sns.barplot(data=vardf, x='feat', y='std')
     plt.xticks(rotation='vertical')
-    plt.show()
+    # plt.show()
     return vardf
 
 
@@ -55,32 +54,48 @@ print("after drop low var feat:", train_data.shape)
 # 方差值大的反常的单独分析
 varabnormallist2 = vardf.feat[vardf['std'] > 100000000].tolist()
 # featShow(varabnormallist2)
-# valueCountsShow(train_data, varabnormallist2)
+valueCountsShow(train_data, varabnormallist2)
 varabnormallist3 = vardf.feat[(vardf['std'] < 100000000) & (vardf['std'] > 10000000)].tolist()
 # valueCountsShow(train_data, varabnormallist3)
 # featShow(varabnormallist3)
-# 分析发现存在多处1e+10的值，猜测代表某种异常值，类似全F，故用稍微远离其他样本值的值替代
-train_data[train_data >= 9999999999] = 100
-# varShow(train_data)
+# 分析发现存在多处1e+10的值，猜测代表某种异常值，类似全F，用100代替后略微降低了准确率，故屏蔽
+# train_data[train_data >= 9999999999] = 100
+
+highCorrList = getHighCorrList(train_data, 0.9)
+corrDropList = getDropHighCorrList(highCorrList)
+print(corrDropList)
+train_data.drop(corrDropList, axis=1, inplace=True)
 
 # 连续特征离散化,根据上图来区分划分区间
 import warnings
 warnings.filterwarnings("ignore")
+featShow(['var38'])
 train_data['var38'][train_data['var38'] <= 150000] = 0
 train_data['var38'][(train_data['var38'] <= 225000) & (train_data['var38'] > 150000)] = 1
 train_data['var38'][(train_data['var38'] <= 500000) & (train_data['var38'] > 225000)] = 2
 train_data['var38'][(train_data['var38'] <= 1000000) & (train_data['var38'] > 500000)] = 3
 train_data['var38'][(train_data['var38'] <= 6000000) & (train_data['var38'] > 1000000)] = 4
 train_data['var38'][train_data['var38'] > 6000000] = 5
-
 dummies = pd.get_dummies(train_data['var38'], prefix='var38')
 x = train_data.iloc[:, :-1]
 y = train_data.iloc[:, -1]
 train_data = pd.concat([x, dummies, y], axis=1)
 train_data.drop(['var38'], axis=1, inplace=True)
-train_data.to_csv('eeeeeeeee.csv', index=False)
 
-# heatmap针对哪些变量画？
+# 采用取均值离散化的方法，SVM的LB分数略微下降，LR的分数略微提升
+# train_data['var38'][train_data['var38'] <= 150000] = \
+#     train_data.loc[train_data[train_data.var38 <= 150000].index, :].var38.mean()
+# train_data['var38'][(train_data['var38'] <= 225000) & (train_data['var38'] > 150000)] = \
+#     train_data.iloc[train_data[(train_data['var38'] <= 225000) & (train_data['var38'] > 150000)].index, :].var38.mean()
+# train_data['var38'][(train_data['var38'] <= 500000) & (train_data['var38'] > 225000)] = \
+#     train_data.iloc[train_data[(train_data['var38'] <= 500000) & (train_data['var38'] > 225000)].index, :].var38.mean()
+# train_data['var38'][(train_data['var38'] <= 1000000) & (train_data['var38'] > 500000)] = \
+#     train_data.iloc[train_data[(train_data['var38'] <= 1000000) & (train_data['var38'] > 500000)].index, :].var38.mean()
+# train_data['var38'][(train_data['var38'] <= 6000000) & (train_data['var38'] > 1000000)] = \
+#     train_data.iloc[train_data[(train_data['var38'] <= 6000000) & (train_data['var38'] > 1000000)].index, :].var38.mean()
+# train_data['var38'][train_data['var38'] > 6000000] = \
+#     train_data.iloc[train_data[train_data.var38 > 6000000].index, :].var38.mean()
+
 tmap = getTypeMap(train_data)
 floatColList = tmap['float64']
 # corr_heatmap(train_data, floatColList)
@@ -131,8 +146,8 @@ dummies = pd.get_dummies(test_data['var38'], prefix='var38')
 test_data = pd.concat([test_data, dummies], axis=1)
 test_data.drop(['var38'], axis=1, inplace=True)
 test_data.drop(zeroColumns, axis=1, inplace=True)
-test_data[test_data >= 9999999999] = 100
 test_data.drop(varabnormallist1, axis=1, inplace=True)
+test_data.drop(corrDropList, axis=1, inplace=True)
 test_data = pd.DataFrame(ss.fit_transform(test_data), index=test_data.index, columns=test_data.columns)
 test_data.drop(imptdroplist, axis=1, inplace=True)
 print('test_date shape:', test_data.shape)

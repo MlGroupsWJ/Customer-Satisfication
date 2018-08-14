@@ -4,8 +4,8 @@ from EDA.EDA3 import train_data, test_data, IDlist
 from xgboost import XGBClassifier
 
 lrc = linear_model.LogisticRegression()
-# ModelCV(lrc, 'lrc', train_data, 5)
-# classReport(lrc, train_data)
+ModelCV(lrc, 'lrc', train_data, 5)
+classReport(lrc, train_data)
 svc = svm.LinearSVC()
 # ModelCV(svc, 'SVM', train_data, 5)
 # classReport(svc, train_data)

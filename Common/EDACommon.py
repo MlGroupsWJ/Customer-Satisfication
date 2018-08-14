@@ -9,6 +9,7 @@ import operator
 from sklearn.utils import shuffle
 from Common.ModelCommon import ModelCV
 from sklearn import svm
+import numpy as np
 
 class NAClass(object):
     def __init__(self):
@@ -72,8 +73,8 @@ def GetValueCountDf(df):
     valueCountList = []
     for feat in df.columns:
         valueCountList.append(df[feat].value_counts().shape[0])
-    valueCountDf = pd.DataFrame({'feat':df.columns, 'valueCount':valueCountList})
-    return valueCountList
+    valueCountDf = pd.DataFrame({'feat': df.columns, 'valueCount': valueCountList})
+    return valueCountDf
 
 
 def GetZeroColumns(df):
@@ -149,7 +150,6 @@ def underSampling(train, rate):
 
 # repeat为重复样本1的次数
 def overSampling(train, repeat):
-    idx_0 = train[train['TARGET'] == 0].index
     idx_1 = train[train['TARGET'] == 1].index
     i = 0
     while i < repeat:
@@ -176,10 +176,8 @@ def getBestUnSamplingRate(train, ratelist):
 
 def corr_heatmap(train, v):
     correlations = train[v].corr()
-
     # Create color map ranging between two colors
     cmap = sns.diverging_palette(220, 10, as_cmap=True)
-
     sns.heatmap(correlations, cmap=cmap, vmax=1.0, center=0, fmt='.2f',
                 square=True, linewidths=.5, annot=True, cbar_kws={"shrink": .75})
     plt.show()
@@ -195,4 +193,34 @@ def getTypeMap(train_data):
     typeMap['int64'] = train_data.dtypes[train_data.dtypes == 'int64'].index
     typeMap['float64'] = train_data.dtypes[train_data.dtypes == 'float64'].index
     return typeMap
+
+
+def getHighCorrList(df, thres):
+    x = df.iloc[:, :-1]
+    corr = x.corr()
+    index = corr.index[np.where(corr > thres)[0]]
+    columns = corr.columns[np.where(corr > thres)[1]]
+    highCorrList = [[index[i], columns[i]] for i in range(len(index)) if index[i] != columns[i]]
+    uniqList = [[0,0]]
+    for i in range(len(highCorrList)):
+        uniqCount = 0
+        for j in range(len(uniqList)):
+            if highCorrList[i][0] == uniqList[j][1] and highCorrList[i][1] == uniqList[j][0]:
+                uniqCount += 1
+        if uniqCount == 0:
+            uniqList.append(highCorrList[i])
+    del uniqList[0]
+    return uniqList
+
+
+def getDropHighCorrList(highList):
+    dropList = []
+    for item in highList:
+        if item[0] in dropList:
+            break
+        if item[1] in dropList:
+            break
+        else:
+            dropList.append(item[1])
+    return dropList
 

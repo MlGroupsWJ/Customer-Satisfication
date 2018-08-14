@@ -8,10 +8,10 @@ from sklearn.metrics import classification_report
 def ModelCV(estimator, modelname, train_data, k_fold):
     x = train_data.iloc[:, :-1]
     y = train_data.iloc[:, -1]
-    # print("%s mean score:" % modelname, cross_val_score(estimator, x, y, cv=k_fold).mean())
+    print("%s mean score:" % modelname, cross_val_score(estimator, x, y, cv=k_fold).mean())
     return cross_val_score(estimator, x, y, cv=k_fold).mean()
 
-
+# TODO
 def classReport(estimator, train_data):
     x_train, x_test, y_train, y_test = train_test_split(train_data, train_data.TARGET, test_size=0.5, random_state=33)
     estimator.fit(x_train, y_train)
