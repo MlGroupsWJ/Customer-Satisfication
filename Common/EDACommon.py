@@ -11,6 +11,7 @@ from Common.ModelCommon import ModelCV
 from sklearn import svm
 import numpy as np
 
+
 class NAClass(object):
     def __init__(self):
         pass
@@ -127,6 +128,7 @@ def xgbImportanceShow(train_data):
     imptdf = pd.DataFrame(impt, columns=['feature', 'fscore'])
     imptdf_sort = imptdf.sort_values(by='fscore', ascending=False)
     # print("xgb importance:\n", imptdf_sort)
+    imptdf_sort.to_csv('../tmp/xgb_importance.csv', index=False)
     xgb.plot_importance(model, max_num_features=400, height=0.8)
     # plt.show()
     return imptdf_sort
@@ -195,13 +197,17 @@ def getTypeMap(train_data):
     return typeMap
 
 
-def getHighCorrList(df, thres):
-    x = df.iloc[:, :-1]
+# iswhole为True时代表是完整的数据集，需要将TARGET去除再求相关性，为False时代表已经是筛选后的列，不包含TARGET
+def getHighCorrList(df, thres, iswhole):
+    if iswhole:
+        x = df.iloc[:, :-1]
+    else:
+        x = df
     corr = x.corr()
     index = corr.index[np.where(corr > thres)[0]]
     columns = corr.columns[np.where(corr > thres)[1]]
     highCorrList = [[index[i], columns[i]] for i in range(len(index)) if index[i] != columns[i]]
-    uniqList = [[0,0]]
+    uniqList = [[0, 0]]
     for i in range(len(highCorrList)):
         uniqCount = 0
         for j in range(len(uniqList)):
@@ -224,3 +230,12 @@ def getDropHighCorrList(highList):
             dropList.append(item[1])
     return dropList
 
+
+def getUinqueCorrDf(train, threshold):
+    cor_mat = train.corr()
+    important_corrs = (cor_mat[abs(cor_mat) > threshold][cor_mat != 1.0]).unstack().dropna().to_dict()
+    unique_important_corrs = pd.DataFrame(
+        list(set([(tuple(sorted(key)), important_corrs[key]) for key in important_corrs])),
+        columns=['attribute pair', 'correlation'])
+    unique_important_corrs = unique_important_corrs.ix[abs(unique_important_corrs['correlation']).argsort()[::-1]]
+    return unique_important_corrs

@@ -3,7 +3,7 @@ from Data.data import *
 from Common.EDACommon import *
 import seaborn as sns
 import matplotlib.pyplot as plt
-from sklearn.preprocessing import  MinMaxScaler, StandardScaler
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from math import ceil
 
 
@@ -61,10 +61,10 @@ varabnormallist3 = vardf.feat[(vardf['std'] < 100000000) & (vardf['std'] > 10000
 # 分析发现存在多处1e+10的值，猜测代表某种异常值，类似全F，用100代替后略微降低了准确率，故屏蔽
 # train_data[train_data >= 9999999999] = 100
 
-highCorrList = getHighCorrList(train_data, 0.9)
-corrDropList = getDropHighCorrList(highCorrList)
-print(corrDropList)
-train_data.drop(corrDropList, axis=1, inplace=True)
+# highCorrList = getHighCorrList(train_data, 0.9, True)
+# corrDropList = getDropHighCorrList(highCorrList)
+# print(corrDropList)
+# train_data.drop(corrDropList, axis=1, inplace=True)
 
 # 连续特征离散化,根据上图来区分划分区间
 import warnings
@@ -96,9 +96,6 @@ train_data.drop(['var38'], axis=1, inplace=True)
 # train_data['var38'][train_data['var38'] > 6000000] = \
 #     train_data.iloc[train_data[train_data.var38 > 6000000].index, :].var38.mean()
 
-tmap = getTypeMap(train_data)
-floatColList = tmap['float64']
-# corr_heatmap(train_data, floatColList)
 
 # 特征归一化，由于test_data可能会使用transform方法，直接使用train_data的拟合参数，所以这里必须将target去除再拟合
 ss = StandardScaler()
@@ -113,6 +110,7 @@ print("after MinMaxScaler:", train_data.shape)
 # 这里奇怪的是两种模型得到的importance倒数没有任何交叉
 treeImptdf = TreeImportanceShow(train_data)
 xgbImptdf = xgbImportanceShow(train_data)
+
 imptdroplist1 = treeImptdf['feat'][treeImptdf['importance'] == 0].values.tolist()
 imptdroplist2 = xgbImptdf['feature'][xgbImptdf['fscore'] < 10].values.tolist()
 imptdroplist = list(set(imptdroplist1 + imptdroplist2))
@@ -147,7 +145,7 @@ test_data = pd.concat([test_data, dummies], axis=1)
 test_data.drop(['var38'], axis=1, inplace=True)
 test_data.drop(zeroColumns, axis=1, inplace=True)
 test_data.drop(varabnormallist1, axis=1, inplace=True)
-test_data.drop(corrDropList, axis=1, inplace=True)
+# test_data.drop(corrDropList, axis=1, inplace=True)
 test_data = pd.DataFrame(ss.fit_transform(test_data), index=test_data.index, columns=test_data.columns)
 test_data.drop(imptdroplist, axis=1, inplace=True)
 print('test_date shape:', test_data.shape)
