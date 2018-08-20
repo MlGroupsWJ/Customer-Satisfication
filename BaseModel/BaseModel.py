@@ -6,7 +6,7 @@ from xgboost import XGBClassifier
 lrc = linear_model.LogisticRegression()
 ModelCV(lrc, 'lrc', train_data, 5)
 classReport(lrc, train_data)
-svc = svm.LinearSVC()
+svc = svm.LinearSVC(C=0.001)
 # ModelCV(svc, 'SVM', train_data, 5)
 # classReport(svc, train_data)
 dtc = tree.DecisionTreeClassifier()
