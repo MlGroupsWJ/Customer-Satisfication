@@ -10,9 +10,10 @@ params['booster'] = 'gbtree'
 params['eval_metric'] = 'auc'
 
 param_search = {
-    # 'eta': np.arange(0.01, 0.2, 0.02).tolist(),
-    'max_depth': range(3, 10, 2),
-    'min_child_weight': range(1, 6, 2),
+    # 'learning_rate': np.arange(0.1, 0.2, 0.02).tolist(),
+    'max_depth': range(3, 10, 1),
+    'n_estimators': range(300, 650, 50),
+    'min_child_weight': range(1, 6, 1),
     'subsample': np.arange(0.5, 1, 0.1).tolist(),
     'colsample_bytree': np.arange(0.5, 1, 0.1).tolist()
 }
@@ -21,6 +22,7 @@ x_train = train_data.iloc[:, :-1]
 y_train = train_data.TARGET
 
 xgbc = XGBClassifier(**params)
+xgbc.fit()
 gridsearch = GridSearchCV(estimator=xgbc, param_grid=param_search, scoring='roc_auc', cv=5)
 gridsearch.fit(x_train, y_train)
 print(gridsearch.best_params_, gridsearch.best_score_)

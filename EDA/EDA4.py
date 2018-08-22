@@ -73,10 +73,6 @@ sns.FacetGrid(train_data[train_data.var38mc], hue="TARGET", size=6) \
 # 根据卡方检验和anova中的f值筛选特征
 p = 3
 X_bin = Binarizer().fit_transform(scale(X))
-selectChi2 = SelectPercentile(chi2, percentile=p).fit(X_bin, y)
-selectF_classif = SelectPercentile(f_classif, percentile=p).fit(X, y)
-
-X_bin = Binarizer().fit_transform(scale(X))
 selectChi2 = SelectPercentile(chi2, percentile=p)
 selectChi2.fit(X_bin, y)
 selectF_classif = SelectPercentile(f_classif, percentile=p)

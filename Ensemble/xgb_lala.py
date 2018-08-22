@@ -77,3 +77,4 @@ d_test = xgb.DMatrix(x_test)
 y_pred = clf.predict(d_test)
 submission = pd.DataFrame({"ID":id_test, "TARGET":y_pred})
 submission.to_csv("submission.csv", index=False)
+
