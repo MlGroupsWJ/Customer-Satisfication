@@ -27,7 +27,7 @@ params['early_stopping_rounds'] = 30
 d_train = xgb.DMatrix(x_train, label=y_train)
 watchlist = [(d_train, 'train')]
 
-clf = xgb.train(params, d_train, 500, watchlist)
+clf = xgb.train(params, d_train, 600, watchlist)
 
 d_test = xgb.DMatrix(test_data)
 y_pred = clf.predict(d_test)

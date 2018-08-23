@@ -24,8 +24,8 @@ def classReport(estimator, train_data):
 
 def SaveResult(estimator, x, y, testdf, idlist, filename):
     estimator.fit(x, y)
-    result = estimator.predict(testdf)
-    resultdf = pd.DataFrame({'ID': idlist, 'TARGET': result.astype(np.int32)})
+    result = estimator.predict_proba(testdf)
+    resultdf = pd.DataFrame({'ID': idlist, 'TARGET': result.astype(np.float32)})
     resultdf.to_csv(filename, index=False)
 
 
