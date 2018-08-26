@@ -24,7 +24,7 @@ def classReport(estimator, train_data):
 
 def SaveResult(estimator, x, y, testdf, idlist, filename):
     estimator.fit(x, y)
-    result = estimator.predict_proba(testdf)
+    result = estimator.predict_proba(testdf)[:, -1]
     resultdf = pd.DataFrame({'ID': idlist, 'TARGET': result.astype(np.float32)})
     resultdf.to_csv(filename, index=False)
 
@@ -92,22 +92,20 @@ def auc_score2(params, train_data, num_boost_round, kfold):
     x_train = train_data.iloc[:, :-1]
     y_train = train_data.iloc[:, -1]
     auc_score = 0
-    skf = StratifiedKFold(n_splits=kfold, shuffle=True, random_state=1224)
+    skf = StratifiedKFold(n_splits=kfold, shuffle=False, random_state=1224)
     for train_index, eval_index in skf.split(x_train, y_train):
-        train_set = x_train[train_index.astype(int).tolist()]
-        eval_set = y_train[eval_index.astype(int).tolist()]
-        train_set_x = train_set.iloc[:, :-1]
-        train_set_y = train_set.iloc[:, -1]
-        eval_set_x = eval_set.iloc[:, :-1]
-        eval_set_y = eval_set.iloc[:, -1]
+        train_set_x = x_train.iloc[train_index, :]
+        train_set_y = y_train[train_index]
+        eval_set_x = x_train.iloc[eval_index, :]
+        eval_set_y = y_train[eval_index]
 
         dtrain = xgb.DMatrix(train_set_x, train_set_y)
         deval = xgb.DMatrix(eval_set_x)
         watchlist = [(dtrain, 'train')]
         xgb_model = xgb.train(params, dtrain, num_boost_round, watchlist)
         y_pred = xgb_model.predict_proba(deval)
-        auc_score = roc_auc_score(y_pred, eval_set_y)
-        return auc_score
+        auc_score += roc_auc_score(y_pred, eval_set_y)
+    return auc_score/kfold
 
 
 def selectFeatures(train_data, p):

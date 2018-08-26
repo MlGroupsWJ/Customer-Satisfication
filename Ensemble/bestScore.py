@@ -4,6 +4,7 @@ from Common.EDACommon import *
 from Common.ModelCommon import *
 import seaborn as sns
 import matplotlib.pyplot as plt
+from xgboost import XGBClassifier
 
 
 def varShow(train_data):
@@ -32,11 +33,11 @@ for i, c1 in enumerate(C):
         f2 = train_data[c2].values
         if np.all(f1 == f2):
             repeatColumns.append(c2)
-
 train_data.drop(repeatColumns, axis=1, inplace=True)
 
 # var3的特殊值用众数替代
 train_data.var3 = train_data.var3.replace(-999999, 2)
+test_data.var3 = test_data.var3.replace(-999999, 2)
 
 vardf = varShow(train_data)
 # 方差小于0.001的直接丢弃
@@ -44,61 +45,51 @@ varabnormallist1 = vardf.feat[vardf['std'] < 0.001].tolist()
 train_data.drop(varabnormallist1, axis=1, inplace=True)
 print("after drop low var feat:", train_data.shape)
 
-params = {}
-params['objective'] = 'binary:logistic'
-params['booster'] = 'gbtree'
-params['eval_metric'] = 'auc'
-params['eta'] = 0.0201
-params['max_depth'] = 5
-params['subsample'] = 0.6815
-params['colsample_bytree'] = 0.7
 test_data.drop(zeroColumns, axis=1, inplace=True)
 test_data.drop(repeatColumns, axis=1, inplace=True)
 test_data.drop(varabnormallist1, axis=1, inplace=True)
 
-
-# 寻找最佳的特征筛选比例
-# plist = range(10, 110, 10)
-# best_p, best_score = getBestP_and_AucScore(auc_score1, plist, params, train_data, 300, 5)
-# print("bset_p is :%d, best_score is:%f" % (best_p, best_score))
-# bset_p is :70, best_score is:0.841352
-
 features = selectFeatures(train_data, 70)
 train_data = train_data[features + ['TARGET']]
-# ss = StandardScaler()
-# train_data_x = train.iloc[:, :-1]
-# train_data_y = train.iloc[:, -1]
-# train_data_x = pd.DataFrame(data=ss.fit_transform(train_data_x), index=train_data_x.index, columns=train_data_x.columns)
-# train_data = pd.concat([train_data_x, train_data_y], axis=1)
 test_data = test_data[features]
-# test_data = pd.DataFrame(ss.fit_transform(test_data), index=test_data.index, columns=test_data.columns)
 
 x_train = train_data.iloc[:, :-1]
 y_train = train_data.TARGET
 
-# 增加各行0的统计
-# x_train['n0'] = (x_train == 0).sum(axis=1)
-# train_data['n0'] = x_train['n0']
-# test_data['n0'] = (test_data == 0).sum(axis=1)
-# train_data['n0'] = test_data['n0']
 
-params = {}
-params['objective'] = 'binary:logistic'
-params['booster'] = 'gbtree'
-params['eval_metric'] = 'auc'
-params['eta'] = 0.02
-params['max_depth'] = 3
-params['min_child_weight'] = 5
-params['subsample'] = 0.7
-params['colsample_bytree'] = 0.5
-params['early_stopping_rounds'] = 30
+if __name__ == '__main__':
+    # 原生XGB训练
+    # params = {}
+    # params['objective'] = 'binary:logistic'
+    # params['booster'] = 'gbtree'
+    # params['eval_metric'] = 'auc'
+    # params['eta'] = 0.02
+    # params['max_depth'] = 5
+    # params['subsample'] = 0.6
+    # params['colsample_bytree'] = 0.5
+    #
+    # d_train = xgb.DMatrix(x_train, label=y_train)
+    # watchlist = [(d_train, 'train')]
+    #
+    # clf = xgb.train(params, d_train, 580, watchlist)
+    #
+    # d_test = xgb.DMatrix(test_data)
+    # y_pred = clf.predict(d_test)
+    # submission = pd.DataFrame({"ID": IDlist, "TARGET": y_pred})
+    # submission.to_csv("../Result/bestXGB.csv", index=False)
 
-d_train = xgb.DMatrix(x_train, label=y_train)
-watchlist = [(d_train, 'train')]
+    # xgb的sklearn接口XGBClassifier方法，需转换相关参数，经验证和原生xgb结果完全相同
+    params = {}
+    params['objective'] = 'binary:logistic'
+    params['booster'] = 'gbtree'
+    params['learning_rate'] = 0.02
+    params['max_depth'] = 5
+    params['subsample'] = 0.6
+    params['colsample_bytree'] = 0.5
+    params['n_estimators'] = 580
 
-clf = xgb.train(params, d_train, 600, watchlist)
-
-d_test = xgb.DMatrix(test_data)
-y_pred = clf.predict(d_test)
-submission = pd.DataFrame({"ID": IDlist, "TARGET": y_pred})
-submission.to_csv("../Result/bestXGB.csv", index=False)
+    clf = XGBClassifier(**params)
+    clf.fit(x_train, y_train, eval_metric='auc')
+    y_pred = clf.predict_proba(test_data)[:, -1]
+    submission = pd.DataFrame({"ID": IDlist, "TARGET": y_pred})
+    submission.to_csv("../Result/bestXGB.csv", index=False)

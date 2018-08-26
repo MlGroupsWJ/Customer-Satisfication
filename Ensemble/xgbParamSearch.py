@@ -22,7 +22,6 @@ x_train = train_data.iloc[:, :-1]
 y_train = train_data.TARGET
 
 xgbc = XGBClassifier(**params)
-xgbc.fit()
 gridsearch = GridSearchCV(estimator=xgbc, param_grid=param_search, scoring='roc_auc', cv=5)
 gridsearch.fit(x_train, y_train)
 print(gridsearch.best_params_, gridsearch.best_score_)

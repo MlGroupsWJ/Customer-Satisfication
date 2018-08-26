@@ -119,8 +119,8 @@ print("after drop imptdroplist:", train_data.shape)
 
 
 # undersampling
-# train_data = underSampling(train_data, 1.7)
-# print("after underSampling:", train_data.shape)
+train_data = underSampling(train_data, 1.7)
+print("after underSampling:", train_data.shape)
 
 # 循环寻找最佳的unsersampling rate，经测试以cv分数作为指标无法反应模型真实泛化能力，0样本数越高，cv分数就越高，
 # 但是得出的结果提交后LB分数下降明显，因此寻找最佳rate必须以public LB分数为指标
